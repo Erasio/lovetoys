@@ -59,7 +59,7 @@ function Entity:remove(name)
 end
 
 function Entity:setParent(parent)
-    if self.parent then self.parent.children[self.id] = nil end
+    if self.parent then self.parent:getChildren()[self.id] = nil end
     self.parent = parent
     self:registerAsChild()
 end
@@ -69,7 +69,11 @@ function Entity:getParent()
 end
 
 function Entity:registerAsChild()
-    if self.id then self.parent.children[self.id] = self end
+    if self.id then self.parent:getChildren()[self.id] = self end
+end
+
+function Entity:getChildren()
+    return self.children
 end
 
 function Entity:get(name)
@@ -77,7 +81,7 @@ function Entity:get(name)
 end
 
 function Entity:has(name)
-    return not not self.components[name]
+    return not not self:get(name)
 end
 
 function Entity:getComponents()

@@ -12,6 +12,19 @@ end
 
 function System:requires() return {} end
 
+function System:getTargets() return self.targets end
+
+function System:setActive(isActive)
+    self.active = isActive
+    return self.active
+end
+
+function System:toggleActive()
+    return self:setActive(not self:isActive())
+end
+
+function System:isActive() return self.active end
+
 function System:addEntity(entity, category)
     -- If there are multiple requirement lists, the added entities will
     -- be added to their respetive list.
